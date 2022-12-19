@@ -3,9 +3,9 @@
 
 class Snowfall {
 public:
-	Snowfall(bool isCrystal);
+	Snowfall(bool isCrystal, Texture emoji);
 	void update();
-	void draw(Texture texture) const;
+	void draw() const;
 
 private:
 	Vec2 m_pos;
@@ -14,4 +14,5 @@ private:
 	double m_alpha;
 	bool m_isCrystal;
 	Circle m_circle;
+	Texture m_emoji;
 };

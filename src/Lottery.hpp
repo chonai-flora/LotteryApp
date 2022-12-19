@@ -14,6 +14,7 @@ public:
 
 private:
 	HashTable<Course, HashTable<int32, Array<int32>>> m_students;
+	Array<String> m_courseNames;
 
 	Array<int32> range(int32 start, int32 end) const;
 	String toString(int32 grade, Course course, int32 id) const;

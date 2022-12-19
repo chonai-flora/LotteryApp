@@ -31,7 +31,7 @@ void Slide::draw() const {
 		}
 	}
 	else {
-		String message = length == 7 ? U"     " : U"";
+		String message = (length == 7 ? U"     " : U"");
 		for (int32 i = 0; i < length; i++) {
 			message += m_messages.at(i);
 

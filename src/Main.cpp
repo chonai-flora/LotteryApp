@@ -3,23 +3,29 @@
 #include "Lottery.hpp"
 #include "Snowfall.hpp"
 
+namespace App {
+	String title = U"クリスマス抽選会";
+	String closingMessage = U"当たった人も当たらなかった人も いいクリスマスを過ごせますように♡";
+}
+
 void Main() {
 	// ウィンドウ・フォント・テクスチャ設定
-	Window::SetTitle(U"クリスマス抽選会");
+	Window::SetTitle(App::title);
 	Window::SetFullscreen(true);
 	FontAsset::Register(U"ListFont1", 80, Typeface::Heavy);
 	FontAsset::Register(U"ListFont2", 100, Typeface::Heavy);
 	FontAsset::Register(U"TitleFont", 120, Typeface::Heavy);
-	const Image image{ U"../img/back1.png" };
 	const Texture snowEmoji{ U"❄"_emoji };
-	const Texture background{ image.scaled(Scene::Size()) };
 	const Polygon rightArrow{ { 60, 0 }, { 0, 30 }, { 15, 0 }, { 0, -30 } };
 	const Polygon leftArrow{ rightArrow.scaled(-1, 1) };
+	const Image image{ U"../img/back1.png" };
+	const Texture background{ image.scaled(Scene::Size()) };
 
 	// 雪を生成
 	Array<Snowfall> snowfalls;
 	for (int i = 0; i < 250; i++) {
-		snowfalls << Snowfall(i % 2 == 0);
+		bool isCrystal = (i % 2 == 0);
+		snowfalls << Snowfall(isCrystal, snowEmoji);
 	}
 
 	// 抽選会初期化
@@ -55,13 +61,13 @@ void Main() {
 		{ U"1等 スピーカー(1名)", 1 },
 		{ U"1等 ワイヤレスイヤフォン(1名)", 1 },
 	};
-	Array<Slide> slides{ Slide({ U"クリスマス抽選会" }, U"TitleFont") };
+	Array<Slide> slides{ Slide({ App::title }, U"TitleFont") };
 	for (const auto& [title, n] : gifts) {
 		slides << Slide({ title.split(U' ') }, U"TitleFont");
 		if (n % 10 == 0) {
 			slides << Slide(lottery.chooseStudents(10, title, logFile, false), U"ListFont1");
 			for (int i = 1; i < n / 10; i++) {
-				bool insertLineFeed = i == n / 10 - 1;
+				bool insertLineFeed = (i == n / 10 - 1);
 				slides << Slide(lottery.chooseStudents(10, U"", logFile, insertLineFeed), U"ListFont1");
 			}
 		}
@@ -69,7 +75,7 @@ void Main() {
 			slides << Slide(lottery.chooseStudents(n, title, logFile), U"ListFont2");
 		}
 	}
-	slides << Slide({ String(U"当たった人も当たらなかった人も いいクリスマスを過ごせますように♡").split(U' ') }, U"ListFont1");
+	slides << Slide({ App::closingMessage.split(U' ') }, U"ListFont1");
 
 	// slides の先頭からイテレータをまわす
 	auto slide = slides.begin();
@@ -81,7 +87,7 @@ void Main() {
 		// 雪を降らせる
 		for (auto& snowfall : snowfalls) {
 			snowfall.update();
-			snowfall.draw(snowEmoji);
+			snowfall.draw();
 		}
 
 		// スライド表示
@@ -89,16 +95,17 @@ void Main() {
 
 		// 飾り
 		if (slide == slides.begin()) {
+			double ratio = Math::Cos(Scene::Time() * 2);
 			for (int i = 0; i < 2; i++) {
 				const int32 delta = (i == 0 ? 5 : 0);
 				const Point pos = Scene::Center().movedBy(delta, delta);
 				const Color color = (i == 0 ? Palette::Black : Palette::White);
 				rightArrow
-					.scaled(1, Math::Cos(Scene::Time() * 2))
+					.scaled(1, ratio)
 					.movedBy(pos.movedBy(-250, 250))
 					.draw(color);
 				leftArrow
-					.scaled(1, Math::Cos(Scene::Time() * 2))
+					.scaled(1, ratio)
 					.movedBy(pos.movedBy(250, 250))
 					.draw(color);
 				FontAsset(U"ListFont1")(U"START")

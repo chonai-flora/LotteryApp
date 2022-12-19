@@ -42,6 +42,7 @@ Lottery::Lottery(int32 mi1, int32 ac1, int32 bc1,
 			},
 		}
 	};
+	m_courseNames = { U"MI", U"AC", U"BC", U"AP" };
 }
 
 void Lottery::removeStudents(int32 grade, Course course, Array<int32> ids) {
@@ -92,7 +93,7 @@ Array<int32> Lottery::range(int32 start, int32 end) const {
 }
 
 String Lottery::toString(int32 grade, Course course, int32 id) const {
-	String department = Array({ U"MI", U"AC", U"BC", U"AP" }).at(static_cast<int32>(course));
+	String department = m_courseNames.at(static_cast<int32>(course));
 
 	return U"{}{}{:0>2}"_fmt(grade, department, id);
 }
