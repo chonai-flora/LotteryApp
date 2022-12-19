@@ -1,0 +1,6 @@
+/.vs/
+/Intermediate/
+
+/App/*
+!App/icon.ico
+!App/Resource.rc
