@@ -5,7 +5,7 @@
 
 namespace App {
 	String title = U"クリスマス抽選会";
-	String closingMessage = U"当たった人も当たらなかった人も いいクリスマスを過ごせますように♡";
+	String closingMessage = U"終わり！";
 }
 
 void Main() {

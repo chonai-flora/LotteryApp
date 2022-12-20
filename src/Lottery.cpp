@@ -42,7 +42,6 @@ Lottery::Lottery(int32 mi1, int32 ac1, int32 bc1,
 			},
 		}
 	};
-	m_courseNames = { U"MI", U"AC", U"BC", U"AP" };
 }
 
 void Lottery::removeStudents(int32 grade, Course course, Array<int32> ids) {
@@ -62,7 +61,7 @@ Array<String> Lottery::chooseStudents(int32 n, String title, TextWriter& writer,
 	int32 chooseCount = 0;
 	while (chooseCount < n) {
 		Course course = static_cast<Course>(Random(3));
-		int32 grade = Random(1, course == Course::AP ? 2 : 5);
+		int32 grade = Random(1, (course == Course::AP ? 2 : 5));
 		auto& classroom = m_students[course][grade];
 		if (classroom.isEmpty()) continue;
 
@@ -93,7 +92,7 @@ Array<int32> Lottery::range(int32 start, int32 end) const {
 }
 
 String Lottery::toString(int32 grade, Course course, int32 id) const {
-	String department = m_courseNames.at(static_cast<int32>(course));
+	String courseName = courseNames.at(static_cast<int32>(course));
 
-	return U"{}{}{:0>2}"_fmt(grade, department, id);
+	return U"{}{}{:0>2}"_fmt(grade, courseName, id);
 }

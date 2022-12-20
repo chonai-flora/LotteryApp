@@ -4,3 +4,4 @@
 
 // 学科
 enum class Course { MI, AC, BC, AP };
+const Array<String> courseNames{ U"MI", U"AC", U"BC", U"AP" };
