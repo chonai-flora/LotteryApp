@@ -3,12 +3,12 @@
 
 class Lottery {
 public:
-	Lottery(int32 mi1, int32 ac1, int32 bc1,
-			int32 mi2, int32 ac2, int32 bc2,
-			int32 mi3, int32 ac3, int32 bc3,
-			int32 mi4, int32 ac4, int32 bc4,
-			int32 mi5, int32 ac5, int32 bc5,
-			int32 ap1, int32 ap2);
+	Lottery(int32 a1, int32 b1, int32 c1,
+			int32 a2, int32 b2, int32 c2,
+			int32 a3, int32 b3, int32 c3,
+			int32 a4, int32 b4, int32 c4,
+			int32 a5, int32 b5, int32 c5,
+			int32 d1, int32 d2);
 	void removeStudents(int32 grade, Course course, Array<int32> ids);
 	Array<String> chooseStudents(int32 n, String title, TextWriter& writer, bool insertLineFeed = true);
 

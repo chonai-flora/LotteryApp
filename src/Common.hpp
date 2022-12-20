@@ -3,5 +3,5 @@
 #include <Siv3D.hpp> // OpenSiv3D v0.6.4
 
 // 学科
-enum class Course { MI, AC, BC, AP };
-const Array<String> courseNames{ U"MI", U"AC", U"BC", U"AP" };
+enum class Course { A, B, C, D };
+const Array<String> courseNames{ U"A-", U"B-", U"C-", U"D-" };

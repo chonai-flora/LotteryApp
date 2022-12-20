@@ -28,7 +28,7 @@ void Main() {
 		snowfalls << Snowfall(isCrystal, snowEmoji);
 	}
 
-	// 抽選会初期化
+	// 1~5年生までの3学科+専攻科2学年の人数を指定
 	Lottery lottery(43, 42, 45,
 					47, 43, 42,
 					44, 43, 50,
